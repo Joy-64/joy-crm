@@ -58,10 +58,32 @@ $inquiries = $response["data"] ?? [];
                         <?php echo htmlspecialchars($inquiry["service"]); ?>
                     </p>
 
-                    <p>
+                    <label for="status-<?php echo $inquiry["id"]; ?>">
                         Estado:
-                        <?php echo htmlspecialchars($inquiry["status"]); ?>
-                    </p>
+                    </label>
+
+                    <select class="status-select" id="status-<?php echo $inquiry["id"]; ?>"
+                        data-inquiry-id="<?php echo $inquiry["id"]; ?>">
+                        <option value="new" <?php echo $inquiry["status"] === "new" ? "selected" : ""; ?>>
+                            Nueva
+                        </option>
+
+                        <option value="contacted" <?php echo $inquiry["status"] === "contacted" ? "selected" : ""; ?>>
+                            Contactada
+                        </option>
+
+                        <option value="quoted" <?php echo $inquiry["status"] === "quoted" ? "selected" : ""; ?>>
+                            Presupuesto enviado
+                        </option>
+
+                        <option value="client" <?php echo $inquiry["status"] === "client" ? "selected" : ""; ?>>
+                            Cliente
+                        </option>
+
+                        <option value="discarded" <?php echo $inquiry["status"] === "discarded" ? "selected" : ""; ?>>
+                            No avanzó
+                        </option>
+                    </select>
 
                     <p>
                         Fecha:
@@ -74,7 +96,34 @@ $inquiries = $response["data"] ?? [];
         <?php endif; ?>
 
     </main>
+    <script>
+        const statusSelectors = document.querySelectorAll(".status-select");
 
+        statusSelectors.forEach((selector) => {
+            selector.addEventListener("change", async () => {
+                const formData = new FormData();
+
+                formData.append("id", selector.dataset.inquiryId);
+                formData.append("status", selector.value);
+
+                const response = await fetch(
+                    "../api/update-status.php",
+                    {
+                        method: "POST",
+                        body: formData
+                    }
+                );
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert("Estado actualizado correctamente");
+                } else {
+                    alert("No se pudo actualizar el estado");
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
