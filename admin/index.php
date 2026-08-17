@@ -17,6 +17,20 @@ $serviceNames = [
     "content-creation" => "Creación de contenido",
     "other" => "Otro"
 ];
+
+$totalInquiries = count($inquiries);
+$newInquiries = 0;
+$clientInquiries = 0;
+
+foreach ($inquiries as $inquiry) {
+    if ($inquiry["status"] === "new") {
+        $newInquiries++;
+    }
+
+    if ($inquiry["status"] === "client") {
+        $clientInquiries++;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -38,6 +52,24 @@ $serviceNames = [
     </header>
 
     <main>
+        <section class="dashboard-summary">
+
+            <div class="summary-card">
+                <span>Total</span>
+                <strong><?php echo $totalInquiries; ?></strong>
+            </div>
+
+            <div class="summary-card">
+                <span>Nuevas</span>
+                <strong><?php echo $newInquiries; ?></strong>
+            </div>
+
+            <div class="summary-card">
+                <span>Clientes</span>
+                <strong><?php echo $clientInquiries; ?></strong>
+            </div>
+
+        </section>
 
         <?php if (empty($inquiries)): ?>
 

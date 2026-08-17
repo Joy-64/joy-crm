@@ -122,3 +122,35 @@ button:disabled {
     cursor: not-allowed;
     opacity: 0.6;
 }
+
+.dashboard-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.summary-card {
+    padding: 20px;
+    text-align: center;
+    background-color: var(--card-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+}
+
+.summary-card span {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--secondary-text);
+}
+
+.summary-card strong {
+    font-size: 28px;
+    color: var(--primary-dark);
+}
+
+@media (max-width: 600px) {
+    .dashboard-summary {
+        grid-template-columns: 1fr;
+    }
+}
