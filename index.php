@@ -35,9 +35,9 @@ $nombreProyecto = "Joy CRM";
                 <option value="" selected disabled>Seleccione una opción</option>
                 <option value="website-upgrade">Página Web Upgrade</option>
                 <option value="automation">Automatización</option>
-                <option value="ai-commercial">Publicidad/Reel con IA</option>
+                <option value="ai-commercial">Publicidad | Reel con IA</option>
                 <option value="starter-website">Página Web Inicial para Emprendedores</option>
-                <option value="meta-ads">Publicidad Digital</option>
+                <option value="meta-ads">Meta | Publicidad Digital</option>
                 <option value="content-creation">Creación de contenido</option>
                 <option value="other">Otro</option>
             </select>

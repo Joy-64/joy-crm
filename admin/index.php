@@ -8,6 +8,15 @@ $response = json_decode($jsonResponse, true);
 
 $inquiries = $response["data"] ?? [];
 
+$serviceNames = [
+    "website-upgrade" => "Página Web Upgrade",
+    "automation" => "Automatización",
+    "ai-commercial" => "Publicidad | Reel con IA",
+    "starter-website" => "Página Web Inicial para Emprendedores",
+    "meta-ads" => "Meta | Publicidad Digital",
+    "content-creation" => "Creación de contenido",
+    "other" => "Otro"
+];
 ?>
 
 <!DOCTYPE html>
@@ -55,9 +64,12 @@ $inquiries = $response["data"] ?? [];
 
                     <p>
                         Servicio:
-                        <?php echo htmlspecialchars($inquiry["service"]); ?>
+                        <?php
+                        echo htmlspecialchars(
+                            $serviceNames[$inquiry["service"]] ?? $inquiry["service"]
+                        );
+                        ?>
                     </p>
-
                     <label for="status-<?php echo $inquiry["id"]; ?>">
                         Estado:
                     </label>
@@ -87,7 +99,11 @@ $inquiries = $response["data"] ?? [];
 
                     <p>
                         Fecha:
-                        <?php echo htmlspecialchars($inquiry["created_at"]); ?>
+                        <?php
+                        $createdAt = new DateTime($inquiry["created_at"]);
+
+                        echo $createdAt->format("d/m/Y H:i");
+                        ?>
                     </p>
                 </article>
 
