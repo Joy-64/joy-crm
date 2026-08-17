@@ -20,7 +20,8 @@ $nombreProyecto = "Joy CRM";
         <p>Contanos qué necesita tu negocio 💻✨</p>
     </header>
     <main>
-        <form action="api/create-inquiry.php" method="POST">
+        <form id="inquiry-form" action="api/create-inquiry.php" method="POST">
+           
             <label for="name">Nombre</label>
             <input type="text" id="name" name="name" required>
             <label for="business_name">Nombre del emprendimiento/empresa</label>
@@ -45,8 +46,48 @@ $nombreProyecto = "Joy CRM";
             <textarea id="message" name="message" rows="5"></textarea>
 
             <button type="submit">Enviar consulta</button>
+             <p id="form-message" role="status"></p>
         </form>
     </main>
+    <script>
+    const form = document.querySelector("#inquiry-form");
+    const formMessage = document.querySelector("#form-message");
+    const submitButton = form.querySelector("button[type='submit']");
+
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+
+        submitButton.disabled = true;
+        submitButton.textContent = "Enviando...";
+
+        try {
+            const response = await fetch(form.action, {
+                method: "POST",
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                formMessage.textContent = "¡Consulta enviada correctamente!";
+                formMessage.className = "success-message";
+
+                form.reset();
+            } else {
+                formMessage.textContent = "Revisá los campos e intentá nuevamente.";
+                formMessage.className = "error-message";
+            }
+        } catch (error) {
+            formMessage.textContent = "Ocurrió un error al enviar la consulta.";
+            formMessage.className = "error-message";
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = "Enviar consulta";
+        }
+    });
+</script>
 </body>
 
 </html>

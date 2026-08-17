@@ -105,3 +105,20 @@ article h2 {
 article p {
     margin: 8px 0;
 }
+
+.success-message {
+    color: #15803d;
+    font-weight: bold;
+    text-align: center;
+}
+
+.error-message {
+    color: #b91c1c;
+    font-weight: bold;
+    text-align: center;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
