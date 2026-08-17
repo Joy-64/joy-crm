@@ -1,5 +1,12 @@
 <?php
 
+session_start();
+
+if (!isset($_SESSION["admin_id"])) {
+    header("Location: login.php");
+    exit;
+}
+
 $apiUrl = "http://localhost/joy-crm/api/get-inquiries.php";
 
 $jsonResponse = file_get_contents($apiUrl);
@@ -49,6 +56,13 @@ foreach ($inquiries as $inquiry) {
     <header>
         <h1>Panel de consultas</h1>
         <p>Administra las consultas recibidas en Joy Digital.</p>
+
+        <p>
+            Sesión iniciada como
+            <?php echo htmlspecialchars($_SESSION["admin_username"]); ?>
+        </p>
+
+        <a href="logout.php">Cerrar sesión</a>
     </header>
 
     <main>

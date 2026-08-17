@@ -1,2 +1,6 @@
 # Database configuration
 config/database.php
+
+#Usuario administrador
+setup-admin.php
+
